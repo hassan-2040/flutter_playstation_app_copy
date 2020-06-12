@@ -72,7 +72,7 @@ class _FriendsWidgetState extends State<FriendsWidget> with SingleTickerProvider
                       text: 'Players met',
                     ),
                     Tab(
-                      text: 'PLayers you may know',
+                      text: 'Players you may know',
                     ),
                   ],
                 ),

@@ -5,6 +5,7 @@ import 'package:playstationappcopy/helpers/selected_widget_stream.dart';
 import 'package:playstationappcopy/widgets/bottom_navigation_bar_widget.dart';
 import 'package:playstationappcopy/widgets/friends_widget.dart';
 import 'package:playstationappcopy/widgets/news_feed_widget.dart';
+import 'package:playstationappcopy/widgets/notifications_widget.dart';
 
 import '../helpers/enums.dart';
 
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                         break;
                       case SelectedWidget.notifications:
                         {
-                          return Center(child: Text('Notifications'),);
+                          return NotificationsWidget();
                         }
                         break;
                       case SelectedWidget.accountDetails:
