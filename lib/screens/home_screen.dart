@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:playstationappcopy/helpers/selected_widget_stream.dart';
+import 'package:playstationappcopy/helpers/size_config.dart';
 import 'package:playstationappcopy/widgets/account_details_page/account_details_widget.dart';
 import 'package:playstationappcopy/widgets/bottom_navigation_bar_widget.dart';
 import 'package:playstationappcopy/widgets/friends_widget.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/news-feed-screen';
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context); //configuring size based on device screen
     return Scaffold(
       body: Column(
         children: <Widget>[

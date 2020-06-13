@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playstationappcopy/helpers/size_config.dart';
 
 class FriendsWidget extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _FriendsWidgetState extends State<FriendsWidget> with SingleTickerProvider
                       child: Text(
                         'Friends',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: SizeConfig.textSizeLarge,
                           color: Colors.white,
                         ),
                       ),

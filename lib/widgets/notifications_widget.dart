@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playstationappcopy/helpers/size_config.dart';
 
 class NotificationsWidget extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class NotificationsWidget extends StatelessWidget {
                   child: Text(
                     'Notifications',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: SizeConfig.textSizeLarge,
                       color: Colors.white,
                     ),
                   ),

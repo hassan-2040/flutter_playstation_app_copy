@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:playstationappcopy/helpers/enums.dart';
+import 'package:playstationappcopy/helpers/size_config.dart';
 import 'package:playstationappcopy/widgets/account_details_page/activities_page.dart';
 import 'package:playstationappcopy/widgets/account_details_page/communities_page.dart';
 import 'package:playstationappcopy/widgets/account_details_page/followers_page.dart';
@@ -17,26 +18,28 @@ class AccountDetailsWidget extends StatefulWidget {
 
 class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
     with SingleTickerProviderStateMixin {
-  double _opacityValue = 0;
-  bool _allowGestureScrollTabView = false;
+  double _opacityValue = 0; //using set_state to change opacity of appbar
+  bool _allowGestureScrollTabView = false; //used to make TabBarView unscrollable with gestures if appbar is not visible
   ScrollController _scrollController;
   TabController _tabController;
 
   @override
   void initState() {
-    _scrollController = ScrollController(initialScrollOffset: 0.0);
+    _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
     _tabController = TabController(length: 7, vsync: this);
     super.initState();
   }
 
   _scrollListener() {
-    print("scroll physics: ${_scrollController.position.physics}");
-    final _scrollDirection = _scrollController.position.userScrollDirection;
+
+    //changing opacity value based on scroll position
     setState(() {
       _opacityValue = _scrollController.position.pixels /
           _scrollController.position.maxScrollExtent;
     });
+
+
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
@@ -45,6 +48,8 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
       });
       //reached the bottom
     }
+
+
     if (_scrollController.offset <=
             _scrollController.position.minScrollExtent &&
         !_scrollController.position.outOfRange) {
@@ -57,7 +62,6 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: <Widget>[
         Container(
@@ -85,19 +89,15 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
               Widget image,
               ImageChunkEvent loadingProgress,
             ) {
-              print('inside loading builder');
               if (loadingProgress == null) return image;
               if (loadingProgress != null &&
                   loadingProgress.cumulativeBytesLoaded <
                       loadingProgress.expectedTotalBytes) {
-                print('still loading');
                 return Center(child: CircularProgressIndicator());
               } else if (loadingProgress.cumulativeBytesLoaded ==
                   loadingProgress.expectedTotalBytes) {
-                print('loading done');
                 return image;
               }
-              print('bahar ka print');
               return image;
             },
             errorBuilder: (BuildContext context, Object exception,
@@ -106,7 +106,7 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
                 'Could not load image',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 8,
+                  fontSize: SizeConfig.textSizeNormal,
                 ),
               );
             },
@@ -133,7 +133,7 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
               ),
               Container(
                 color: Colors.white,
-                height: deviceHeight - 170,
+                height: SizeConfig.screenHeight - 170,
                 child: SafeArea(
                   child: TabBarView(
                     controller: _tabController,
@@ -153,9 +153,8 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
             ],
           ),
         ),
-        AnimatedOpacity(
+        Opacity(
           opacity: _opacityValue,
-          duration: Duration(milliseconds: 200),
           child: AccountDetailsAppBar(tabController: _tabController),
         ),
       ],
@@ -187,7 +186,7 @@ class AccountDetailsAppBar extends StatelessWidget {
                       Text(
                         'Hector Frankenstien',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: SizeConfig.textSizeNormal,
                           color: Colors.white,
                         ),
                       ),
@@ -197,7 +196,7 @@ class AccountDetailsAppBar extends StatelessWidget {
                       Text(
                         'frankenstien2040',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: SizeConfig.textSizeSmall,
                           color: Colors.grey,
                           fontStyle: FontStyle.italic,
                         ),

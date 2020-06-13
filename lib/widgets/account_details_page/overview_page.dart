@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playstationappcopy/helpers/size_config.dart';
 
 class OverviewPage extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class OverviewPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0),
           child: Text(
             'About Me',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: SizeConfig.textSizeNormal),
           ),
         ),
         SizedBox(
@@ -20,7 +21,7 @@ class OverviewPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0),
           child: Text(
             'I am a gamer',
-            style: TextStyle(fontSize: 14),
+            style: TextStyle(fontSize: SizeConfig.textSizeSmall),
           ),
         ),
         SizedBox(
@@ -33,7 +34,7 @@ class OverviewPage extends StatelessWidget {
               Text(
                 'Language:',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: SizeConfig.textSizeSmall,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -42,7 +43,9 @@ class OverviewPage extends StatelessWidget {
               ),
               Text(
                 'English (United States)',
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(
+                  fontSize: SizeConfig.textSizeSmall,
+                ),
               ),
             ],
           ),

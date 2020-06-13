@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playstationappcopy/helpers/size_config.dart';
 
 class NewsFeedWidget extends StatelessWidget {
   @override
@@ -18,7 +19,7 @@ class NewsFeedWidget extends StatelessWidget {
                   child: Text(
                     'What\'s New',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: SizeConfig.textSizeLarge,
                       color: Colors.white,
                     ),
                   ),
