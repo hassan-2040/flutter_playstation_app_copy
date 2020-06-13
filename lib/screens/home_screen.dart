@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:playstationappcopy/helpers/selected_widget_stream.dart';
+import 'package:playstationappcopy/widgets/account_details_page/account_details_widget.dart';
 import 'package:playstationappcopy/widgets/bottom_navigation_bar_widget.dart';
 import 'package:playstationappcopy/widgets/friends_widget.dart';
 import 'package:playstationappcopy/widgets/news_feed_widget.dart';
@@ -39,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                         break;
                       case SelectedWidget.accountDetails:
                         {
-                          return Center(child: Text('Account details'),);
+                          return AccountDetailsWidget();
                         }
                         break;
                       default:
