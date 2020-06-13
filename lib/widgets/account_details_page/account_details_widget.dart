@@ -10,6 +10,7 @@ import 'package:playstationappcopy/widgets/account_details_page/following_page.d
 import 'package:playstationappcopy/widgets/account_details_page/friends_page.dart';
 import 'package:playstationappcopy/widgets/account_details_page/games_page.dart';
 import 'package:playstationappcopy/widgets/account_details_page/overview_page.dart';
+import 'package:playstationappcopy/widgets/account_details_page/pop_up_menu_button.dart';
 
 class AccountDetailsWidget extends StatefulWidget {
   @override
@@ -19,7 +20,8 @@ class AccountDetailsWidget extends StatefulWidget {
 class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
     with SingleTickerProviderStateMixin {
   double _opacityValue = 0; //using set_state to change opacity of appbar
-  bool _allowGestureScrollTabView = false; //used to make TabBarView unscrollable with gestures if appbar is not visible
+  bool _allowGestureScrollTabView =
+      false; //used to make TabBarView unscrollable with gestures if appbar is not visible
   ScrollController _scrollController;
   TabController _tabController;
 
@@ -31,14 +33,32 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
+
   _scrollListener() {
+
+    //making sure opacity value remains b/w 0 and 1
+    double _tempOpacityValue;
+    final _relativeValue = _scrollController.position.pixels /
+        _scrollController.position.maxScrollExtent;
+    if(_relativeValue < 0) {
+      _tempOpacityValue = 0;
+    } else if (_relativeValue < 1) {
+      _tempOpacityValue = _relativeValue;
+    } else {
+      _tempOpacityValue = 1;
+    }
 
     //changing opacity value based on scroll position
     setState(() {
-      _opacityValue = _scrollController.position.pixels /
-          _scrollController.position.maxScrollExtent;
+      _opacityValue = _tempOpacityValue;
     });
-
 
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
@@ -48,7 +68,6 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
       });
       //reached the bottom
     }
-
 
     if (_scrollController.offset <=
             _scrollController.position.minScrollExtent &&
@@ -114,30 +133,77 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
         ),
         SingleChildScrollView(
           controller: _scrollController,
+          physics: ClampingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
                 height: 300,
               ),
-              Container(
-                height: 200,
-                decoration: BoxDecoration(color: Colors.black, boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    spreadRadius: 40,
-                    blurRadius: 60,
-                    offset: Offset(0, -20), // changes position of shadow
+              Stack(
+                overflow: Overflow.visible,
+                children: <Widget>[
+                  Container(
+                    height: 300,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.teal,
+                          spreadRadius: 40,
+                          blurRadius: 60,
+                          offset: Offset(0, -20), // changes position of shadow
+                        ),
+                      ],
+                    ),
                   ),
-                ]),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 100,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        CircleAvatar(radius: 40,),
+                        SizedBox(height: 20,),
+                        Text(
+                          'Hector Frankenstein',
+                          style: TextStyle(
+                            fontSize: SizeConfig.textSizeMainHeading,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Text(
+                          'frankenstien2040',
+                          style: TextStyle(
+                            fontSize: SizeConfig.textSizeNormal,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        PopUpMenuButton(
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            color: Colors.grey.withOpacity(0.3),
+                            child: Text('Edit Profile', style: TextStyle(fontSize: SizeConfig.textSizeNormal, color: Colors.white,),),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
               Container(
                 color: Colors.white,
-                height: SizeConfig.screenHeight - 170,
+                height: SizeConfig.smallDevice ?  SizeConfig.screenHeight - 140 : SizeConfig.screenHeight - 170,
                 child: SafeArea(
                   child: TabBarView(
                     controller: _tabController,
-                    physics: _allowGestureScrollTabView ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
+                    physics: _allowGestureScrollTabView
+                        ? AlwaysScrollableScrollPhysics()
+                        : NeverScrollableScrollPhysics(),
                     children: [
                       OverviewPage(),
                       GamesPage(),
@@ -204,91 +270,12 @@ class AccountDetailsAppBar extends StatelessWidget {
                     ],
                   ),
                 ),
-                PopupMenuButton(
-                  tooltip: "Show Options",
-                  onSelected: (selectedPopUpValue) {
-                    switch (selectedPopUpValue) {
-                      case ProfilePopUpMenuItems.changeProfilePicture:
-                        {}
-                        break;
-                      case ProfilePopUpMenuItems.changeAvatar:
-                        {
-                          //
-                        }
-                        break;
-                      case ProfilePopUpMenuItems.changeBackground:
-                        {
-                          //
-                        }
-                        break;
-                      case ProfilePopUpMenuItems.privacySettings:
-                        {
-                          //
-                        }
-                        break;
-                      case ProfilePopUpMenuItems.moreProfileSettings:
-                        {
-                          //
-                        }
-                        break;
-                      default:
-                        {
-                          return;
-                        }
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: Icon(
-                      FontAwesomeIcons.ellipsisV,
-                      color: Colors.white,
-                      size: 17,
-                    ),
+                PopUpMenuButton(
+                  child: Icon(
+                    FontAwesomeIcons.ellipsisV,
+                    color: Colors.white,
+                    size: 17,
                   ),
-                  itemBuilder: (context) {
-                    return <PopupMenuItem>[
-                      PopupMenuItem(
-                        value: ProfilePopUpMenuItems.changeProfilePicture,
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                        child: Text('Change Profile Picture'),
-                      ),
-                      PopupMenuItem(
-                        value: ProfilePopUpMenuItems.changeAvatar,
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                        child: Text('Change Avatar'),
-                      ),
-                      PopupMenuItem(
-                        value: ProfilePopUpMenuItems.changeBackground,
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                        child: Text('Change Background'),
-                      ),
-                      PopupMenuItem(
-                        value: ProfilePopUpMenuItems.privacySettings,
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                        child: Text('Privacy Settings'),
-                      ),
-                      PopupMenuItem(
-                        value: ProfilePopUpMenuItems.moreProfileSettings,
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                        child: Text('More Profile Settings'),
-                      ),
-                    ];
-                  },
                 ),
               ],
             ),
