@@ -41,14 +41,14 @@ class SizeConfig {
       textSizeSubHeading = 18;
       textSizeLarge = 15;
       textSizeNormal = 12;
-      textSizeSmall = 10;
+      textSizeSmall = 8;
 
     } else {
       textSizeMainHeading = 30;
       textSizeSubHeading = 21;
       textSizeLarge = 18;
       textSizeNormal = 16;
-      textSizeSmall = 12;
+      textSizeSmall = 10;
 
     }
 

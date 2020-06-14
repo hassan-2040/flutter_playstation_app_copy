@@ -86,7 +86,7 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
         Container(
           height: 300,
           width: double.maxFinite,
-          color: Colors.purple,
+          color: Colors.white,
           child: Image.network(
             'https://images.unsplash.com/photo-1591879647848-598422afbc6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1879&q=80',
             fit: BoxFit.cover,
@@ -121,11 +121,13 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
             },
             errorBuilder: (BuildContext context, Object exception,
                 StackTrace stackTrace) {
-              return Text(
-                'Could not load image',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: SizeConfig.textSizeNormal,
+              return Center(
+                child: Text(
+                  'Could not load image',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: SizeConfig.textSizeNormal,
+                  ),
                 ),
               );
             },
