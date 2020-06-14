@@ -102,7 +102,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                   constraints: BoxConstraints(),
                   onPressed: _jumpToNewsFeed,
                   child: Icon(
-                    Icons.crop_square,
+                    Icons.rss_feed,
                     color: _selectedWidget == SelectedWidget.newsFeed
                         ? Theme.of(context).primaryColor
                         : Colors.grey,

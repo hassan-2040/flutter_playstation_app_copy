@@ -42,12 +42,11 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
   }
 
   _scrollListener() {
-
     //making sure opacity value remains b/w 0 and 1
     double _tempOpacityValue;
     final _relativeValue = _scrollController.position.pixels /
         _scrollController.position.maxScrollExtent;
-    if(_relativeValue < 0) {
+    if (_relativeValue < 0) {
       _tempOpacityValue = 0;
     } else if (_relativeValue < 1) {
       _tempOpacityValue = _relativeValue;
@@ -123,7 +122,7 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
                 StackTrace stackTrace) {
               return Center(
                 child: Text(
-                  'Could not load image',
+                  '${exception.toString()}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: SizeConfig.textSizeNormal,
@@ -149,10 +148,10 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
                     height: 300,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
-                      color: Colors.teal,
+                      color: Colors.black,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.teal,
+                          color: Colors.black,
                           spreadRadius: 40,
                           blurRadius: 60,
                           offset: Offset(0, -20), // changes position of shadow
@@ -167,8 +166,13 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        CircleAvatar(radius: 40,),
-                        SizedBox(height: 20,),
+                        CircleAvatar(
+                          radius: 40,
+                          child: Icon(Icons.person),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Text(
                           'Hector Frankenstein',
                           style: TextStyle(
@@ -176,7 +180,9 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Text(
                           'frankenstien2040',
                           style: TextStyle(
@@ -184,12 +190,20 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         PopUpMenuButton(
                           child: Container(
                             padding: const EdgeInsets.all(10),
-                            color: Colors.grey.withOpacity(0.3),
-                            child: Text('Edit Profile', style: TextStyle(fontSize: SizeConfig.textSizeNormal, color: Colors.white,),),
+                            color: Colors.grey.withOpacity(0.2),
+                            child: Text(
+                              'Edit Profile',
+                              style: TextStyle(
+                                fontSize: SizeConfig.textSizeNormal,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -199,7 +213,9 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
               ),
               Container(
                 color: Colors.white,
-                height: SizeConfig.smallDevice ?  SizeConfig.screenHeight - 140 : SizeConfig.screenHeight - 170,
+                height: SizeConfig.smallDevice
+                    ? SizeConfig.screenHeight - 140
+                    : SizeConfig.screenHeight - 170,
                 child: SafeArea(
                   child: TabBarView(
                     controller: _tabController,

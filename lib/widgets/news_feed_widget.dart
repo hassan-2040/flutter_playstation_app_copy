@@ -44,9 +44,7 @@ class NewsFeedWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Center(
-            child: Text('news feed widget posts here'),
-          ),
+          child: Text('news feed widget posts here'),
         ),
       ],
     );

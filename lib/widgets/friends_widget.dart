@@ -85,21 +85,11 @@ class _FriendsWidgetState extends State<FriendsWidget> with SingleTickerProvider
           child: TabBarView(
             controller: _tabController,
             children: [
-              Center(
-                child: Text('All Friends'),
-              ),
-              Center(
-                child: Text('Following Friends'),
-              ),
-              Center(
-                child: Text('Friends Requests'),
-              ),
-              Center(
-                child: Text('Players met online'),
-              ),
-              Center(
-                child: Text('Friends you may know'),
-              ),
+              Text('All Friends'),
+              Text('Following Friends'),
+              Text('Friends Requests'),
+              Text('Players met online'),
+              Text('Friends you may know'),
             ],
           ),
         ),

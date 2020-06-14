@@ -32,9 +32,7 @@ class NotificationsWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Center(
-            child: Text('All notifications'),
-          ),
+          child: Text('All notifications'),
         ),
       ],
     );
