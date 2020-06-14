@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/news-feed-screen';
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context); //configuring size based on device screen
     return Scaffold(
       body: Column(
         children: <Widget>[

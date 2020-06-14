@@ -11,6 +11,7 @@ import 'package:playstationappcopy/widgets/account_details_page/friends_page.dar
 import 'package:playstationappcopy/widgets/account_details_page/games_page.dart';
 import 'package:playstationappcopy/widgets/account_details_page/overview_page.dart';
 import 'package:playstationappcopy/widgets/account_details_page/pop_up_menu_button.dart';
+import 'package:playstationappcopy/widgets/loading_widget.dart';
 
 class AccountDetailsWidget extends StatefulWidget {
   @override
@@ -83,11 +84,11 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
     return Stack(
       children: <Widget>[
         Container(
-          height: 300,
+          height: SizeConfig.smallDevice ? 200 : 300,
           width: double.maxFinite,
           color: Colors.white,
           child: Image.network(
-            'https://images.unsplash.com/photo-1591879647848-598422afbc6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1879&q=80',
+            'https://images.unsplash.com/photo-1558981001-1995369a39cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
             fit: BoxFit.cover,
             frameBuilder: (
               BuildContext context,
@@ -111,7 +112,13 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
               if (loadingProgress != null &&
                   loadingProgress.cumulativeBytesLoaded <
                       loadingProgress.expectedTotalBytes) {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                  child: LoadingWidget(
+                    color: Colors.white,
+                    sizeReference: 40,
+                    borderWidth: 4,
+                  ),
+                );
               } else if (loadingProgress.cumulativeBytesLoaded ==
                   loadingProgress.expectedTotalBytes) {
                 return image;
@@ -139,7 +146,7 @@ class _AccountDetailsWidgetState extends State<AccountDetailsWidget>
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
-                height: 300,
+                height: SizeConfig.smallDevice ? 200 : 300,
               ),
               Stack(
                 overflow: Overflow.visible,
