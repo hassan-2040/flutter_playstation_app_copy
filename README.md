@@ -1,4 +1,4 @@
-# Playstation App Copy
+# Flutter: Playstation App Copy
 
 A copy of PlayStation Mobile App Android UI
 
@@ -14,3 +14,6 @@ Features:
 
 Note:
 CustomPaint to draw a triangle in the loading widget has been copied from stackoverflow. I have yet to work with CustomPaint myself.
+
+Video showcase:
+https://youtu.be/ig-pibv1HBY
